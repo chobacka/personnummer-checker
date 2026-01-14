@@ -9,7 +9,7 @@ RUN dotnet restore
 
 # kopiera av koden och bygg appen
 COPY  . ./
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish ConsoleApp-CICD-gruppuppgift.csproj -c Release -o /app/publish
 
 # steg 2 - Runtime-miljö
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS final
