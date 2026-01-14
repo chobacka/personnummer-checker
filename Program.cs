@@ -12,26 +12,26 @@ namespace ConsoleAppCICDgruppuppgift
 
             string input = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                Console.WriteLine("Fel: Inget personnummer angavs.");
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(input))
+            //{
+            //    Console.WriteLine("Fel: Inget personnummer angavs.");
+            //    return;
+            //}
 
-            if (input.Length != 10 || !input.All(char.IsDigit))
-            {
-                Console.WriteLine("Fel: Personnumret måste bestå av exakt 10 siffror.");
-                return;
-            }
+            //if (input.Length != 10 || !input.All(char.IsDigit))
+            //{
+            //    Console.WriteLine("Fel: Personnumret måste bestå av exakt 10 siffror.");
+            //    return;
+            //}
 
-            bool isValid = PersonnummerValidator.IsValid(input);
+            //bool isValid = PersonnummerValidator.IsValid(input);
 
-            Console.WriteLine();
-            Console.WriteLine(
-                isValid
-                ? "Personnumret är giltigt."
-                : "Personnumret är ogiltigt."
-            );
+            //Console.WriteLine();
+            //Console.WriteLine(
+            //    isValid
+            //    ? "Personnumret är giltigt."
+            //    : "Personnumret är ogiltigt."
+            //);
         }
     }
 }
