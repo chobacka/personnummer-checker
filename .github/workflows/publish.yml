@@ -27,4 +27,4 @@ jobs:
               with:
                 context: .
                 push: ${{ github.ref == 'refs/heads/main' }}
-                tags: ArashFP/CICD-Gruppuppgift:latest
+                tags: jdstanford/personnummer-checker:latest
