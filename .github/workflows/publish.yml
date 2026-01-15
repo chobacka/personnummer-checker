@@ -3,42 +3,37 @@
 on:
   push:
     branches:
-      
-'**'
-pull_request:
-  branches:
-main
+      - '**'
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      
-name: Checkout repo
-      uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      
-name: Login to DockerHub
-      if: github.ref == 'refs/heads/main'
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to DockerHub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      
-name: Build Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: false
-        tags: jdstanford/personnummer-checker:latest
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: jdstanford/personnummer-checker:latest
 
-      
-name: Push Docker image
-      if: github.ref == 'refs/heads/main'
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: jdstanford/personnummer-checker:latest
+      - name: Push Docker image
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: jdstanford/personnummer-checker:latest
