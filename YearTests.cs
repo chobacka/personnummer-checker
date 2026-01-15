@@ -25,7 +25,7 @@ namespace ConsoleAppCICDgruppuppgift.Tests
         public void Validate_ShouldHandleYearsCorrectly(string pnr, bool expected)
         {
             // Act
-            bool result = PersonnummerValidator.Validate(pnr);
+            bool result = SocialSecurityNumberValidator.IsValidSocialSecurityNumber(pnr);
 
             // Assert
             Assert.Equal(expected, result);
