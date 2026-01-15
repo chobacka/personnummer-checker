@@ -8,7 +8,7 @@ namespace ConsoleAppCICDgruppuppgift
         static void Main(string[] args)
         {
             Console.WriteLine("=== Personnummerkontroll ===");
-            Console.WriteLine("Ange personnummer (10 siffror, YYMMDDXXXX):");
+            Console.WriteLine("Ange personnummer (12 siffror, YYYYMMDDXXXX):");
 
             string input = Console.ReadLine();
 
