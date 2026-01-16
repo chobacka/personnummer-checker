@@ -6,9 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    
+
+  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+
+<ItemGroup>
+  <Compile Remove="PersonnummerChecker.Tests\**\*.cs" />
+</ItemGroup>
 
 </Project>
 
