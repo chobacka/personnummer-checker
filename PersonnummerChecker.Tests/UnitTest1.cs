@@ -1,25 +1,27 @@
-using Xunit;
+﻿using Xunit;
 
 namespace PersonnummerChecker.Tests;
 
 public class MonthTests
 {
+    // Testar att giltiga månader (01–12) accepteras
     [Theory]
-
-    // Giltiga månader (01–12)
-    [InlineData("19900101-1234", true)]   // Januari
-    [InlineData("19901201-1234", true)]   // December
-
-    // Ogiltiga månader
-    [InlineData("19900001-1234", false)]  // Månad 00 finns inte
-    [InlineData("19901301-1234", false)]  // Månad 13 finns inte
-
-    public void Validate_Month_IsCorrect(string personnummer, bool expected)
+    [InlineData("19900101-1234")] // Januari
+    [InlineData("19901201-1234")] // December
+    [InlineData("9006151234")]    // Kort format, juni
+    public void Valid_Month_Should_Be_Valid(string pnr)
     {
-        // Anropa huvudmetoden som validerar personnummer
-        var result = PersonnummerValidator.IsValid(personnummer);
+        Assert.True(PersonnummerValidator.IsValid(pnr));
+    }
 
-        // Kontrollera att resultatet stämmer med förväntat värde
-        Assert.Equal(expected, result);
+    // Testar att ogiltiga månader (00, 13+) nekas
+    [Theory]
+    [InlineData("19900001-1234")] // Månad 00
+    [InlineData("19901301-1234")] // Månad 13
+    [InlineData("9913991234")]    // Kort format, ogiltig månad
+    public void Invalid_Month_Should_Be_Invalid(string pnr)
+    {
+        Assert.False(PersonnummerValidator.IsValid(pnr));
     }
 }
+
