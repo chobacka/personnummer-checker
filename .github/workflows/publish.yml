@@ -1,76 +1,63 @@
-<<<<<<< HEAD
-=======
-﻿jobs:
-  test:
-  needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore -c Release
-
-      - name: Test
-        run: dotnet test --no-build -c Release
-
-
-name: Publish Docker image
+name: CI - Test, Build and Publish Docker Image
 
 on:
-    push:
-        branches:
-            - '**'
-    pull_request:
-        branches:
-            - main   
->>>>>>> 138ae47 (CI: add build and test workflow)
+  push:
+    branches:
+      - main
+      - feature/**
+  pull_request:
+    branches:
+      - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
+      # Hämtar koden från GitHub-repot
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Installerar rätt .NET-version
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
+      # Återställer NuGet-paket
       - name: Restore
         run: dotnet restore
 
+      # Bygger projektet
       - name: Build
-        run: dotnet build --no-restore -c Release
+        run: dotnet build --no-restore --configuration Release
 
+      # Kör enhetstester
       - name: Test
-        run: dotnet test --no-build -c Release
+        run: dotnet test --no-build --configuration Release
+
   docker:
     needs: test
     runs-on: ubuntu-latest
 
     steps:
+      # Hämtar koden från GitHub-repot
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Loggar in på DockerHub med GitHub Secrets
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      # Bygger och publicerar Docker-image
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
           tags: afrovitixhoga/personnummer-checker:latest
+
+
